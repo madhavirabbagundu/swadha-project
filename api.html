@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            border:1px solid black;
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+        }
+        img{
+            width:100%
+        }
+        div{
+            border:1px solid black;
+            margin:5%;
+        }
+    </style>
+</head>
+<body>
+    <div id = "container"></div>
+</body>
+</html>
+<script>
+    // var url = "https://dummyproducts-api.herokuapp.com"
+    fetch("https://fakestoreapi.com/products")
+    .then(function (res){
+        console.log(res)
+        return res.json()
+    })
+    .then(function (res){
+        // console.log(res)
+        productsData(res)
+        // return res.json()
+    })
+    .catch(function(err){
+        console.log("error",err)
+    })
+
+var container = document.getElementById("container")
+    function productsData(data){
+  data.forEach(function (el) {
+    
+
+    var div = document.createElement("div")
+
+    var title = document.createElement("p")
+title.innerHTML = el.title
+
+    var image = document.createElement("img")
+      image.src = el.image
+
+    var price = document.createElement("p")
+    price.innerHTML = el.price
+
+    var button = document.createElement("button")
+    button.innerHTML = "Add To Cart"
+
+    button.onclick = function(){
+        addToCard(el)
+    }
+
+    div.append(title,image,price,button)
+
+    container.append(div)
+  });
+
+    }
+
+
+    function addToCard(item){
+        console.log(item)
+
+    }
+</script>
